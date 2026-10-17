@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { useOS } from '../../../context/OSContext';
 import { DEFAULT_WALLPAPERS } from '../../../data/defaults';
+import { PWAInstallButton } from '../../PWA/PWAInstallButton';
 
 const ACCENT_COLORS = [
   { name: 'Windows Blu', value: '#0078d4' },
@@ -220,6 +221,9 @@ export const SettingsApp: React.FC = () => {
                 <h3 className="text-base font-bold mb-1">Esperienza Tablet & Touch</h3>
                 <p className="text-xs text-slate-400">Ottimizzazioni per schermi touch e dispositivi portatili.</p>
               </div>
+
+              {/* PWA Install Banner */}
+              <PWAInstallButton variant="settings" />
 
               <div className={`p-4 rounded-xl border space-y-4 ${isDark ? 'bg-slate-800/60 border-slate-700' : 'bg-white border-slate-200'}`}>
                 <div className="flex items-center justify-between">

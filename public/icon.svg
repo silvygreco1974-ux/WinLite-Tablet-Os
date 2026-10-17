@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="win-blue1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="win-blue2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#005a9e" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0284c7" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Background container with rounded squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bg-grad)" />
+  <rect width="512" height="512" rx="112" fill="none" stroke="#38bdf8" stroke-width="4" stroke-opacity="0.2" />
+
+  <!-- Windows 11 Modern Logo Group with Glow -->
+  <g filter="url(#shadow)" transform="translate(106, 106)">
+    <!-- Top-Left Tile -->
+    <rect x="0" y="0" width="140" height="140" rx="20" fill="url(#win-blue1)" />
+    <!-- Top-Right Tile -->
+    <rect x="160" y="0" width="140" height="140" rx="20" fill="url(#win-blue1)" />
+    <!-- Bottom-Left Tile -->
+    <rect x="0" y="160" width="140" height="140" rx="20" fill="url(#win-blue2)" />
+    <!-- Bottom-Right Tile -->
+    <rect x="160" y="160" width="140" height="140" rx="20" fill="url(#win-blue2)" />
+  </g>
+</svg>

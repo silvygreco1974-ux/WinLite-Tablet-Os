@@ -18,6 +18,7 @@ import {
 import { useOS } from '../../context/OSContext';
 import { AppIcon } from '../Common/AppIcon';
 import { AppType } from '../../types/os';
+import { PWAInstallButton } from '../PWA/PWAInstallButton';
 
 export const StartMenu: React.FC = () => {
   const {
@@ -301,6 +302,11 @@ export const StartMenu: React.FC = () => {
             </div>
           </>
         )}
+
+        {/* PWA Install Banner inside Start Menu */}
+        <div className="mt-4 pt-3 border-t border-slate-500/15">
+          <PWAInstallButton variant="startmenu" />
+        </div>
       </div>
 
       {/* Footer Profile & Actions */}

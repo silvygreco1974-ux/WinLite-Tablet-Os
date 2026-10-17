@@ -2,5 +2,7 @@
   "name": "WinLite Tablet OS",
   "description": "Ambiente desktop stile Windows leggero per tablet con editor di testo, editor di codice, note adesive e launcher web app personalizzate.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

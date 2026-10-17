@@ -11,6 +11,7 @@ import {
 import { useOS } from '../../context/OSContext';
 import { AppIcon } from '../Common/AppIcon';
 import { AppType } from '../../types/os';
+import { PWAInstallButton } from '../PWA/PWAInstallButton';
 
 export const Taskbar: React.FC = () => {
   const {
@@ -253,6 +254,9 @@ export const Taskbar: React.FC = () => {
 
       {/* Right: System Tray */}
       <div className="flex items-center gap-1 shrink-0">
+        {/* PWA Install Button */}
+        <PWAInstallButton variant="taskbar" />
+
         {/* Fullscreen Button for Tablet */}
         <button
           onClick={toggleFullscreen}

@@ -14,6 +14,7 @@ import { WebViewerWindow } from './Apps/WebApps/WebViewerWindow';
 import { FileExplorerApp } from './Apps/FileExplorer/FileExplorerApp';
 import { CalculatorApp } from './Apps/Calculator/CalculatorApp';
 import { SettingsApp } from './Apps/Settings/SettingsApp';
+import { OfflineIndicator } from './PWA/OfflineIndicator';
 import { WindowState } from '../types/os';
 
 export const OSContainer: React.FC = () => {
@@ -89,6 +90,9 @@ export const OSContainer: React.FC = () => {
 
       {/* Calendar Flyout */}
       {isCalendarOpen && <CalendarFlyout />}
+
+      {/* Offline Mode Banner */}
+      <OfflineIndicator />
 
       {/* Windows Taskbar */}
       <Taskbar />
