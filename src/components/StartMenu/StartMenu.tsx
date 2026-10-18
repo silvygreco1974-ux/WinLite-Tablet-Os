@@ -78,21 +78,26 @@ export const StartMenu: React.FC = () => {
       onClick={(e) => e.stopPropagation()}
       style={{
         zIndex: 9000,
-        bottom: '56px',
+        bottom: '60px',
       }}
-      className={`fixed left-1/2 -translate-x-1/2 w-[95vw] sm:w-[580px] h-[540px] rounded-2xl border shadow-2xl backdrop-blur-xl flex flex-col overflow-hidden select-none transition-all duration-200 ${
+      className={`fixed left-1/2 -translate-x-1/2 w-[95vw] sm:w-[600px] h-[560px] rounded-2xl border shadow-2xl backdrop-blur-xl flex flex-col overflow-hidden select-none transition-all duration-200 ${
         isDark
-          ? 'bg-slate-900/90 border-slate-700/80 text-white shadow-black/60'
-          : 'bg-white/95 border-slate-200/90 text-slate-800 shadow-slate-900/30'
+          ? 'bg-[#1c212d]/98 border-[#343e52] text-[#e2e8f0] shadow-black/70'
+          : 'bg-white/98 border-[#e2e8f0] text-[#1e293b] shadow-2xl shadow-slate-900/20'
       }`}
     >
       {/* Search Header */}
       <div className="p-4 pb-3 border-b border-slate-500/10">
-        <div className={`flex items-center gap-2.5 px-3.5 py-2 rounded-xl border transition-colors ${
-          isDark
-            ? 'bg-slate-800/80 border-slate-700 text-white focus-within:border-blue-500'
-            : 'bg-slate-100 border-slate-200 text-slate-900 focus-within:border-blue-500'
-        }`}>
+        <div
+          style={{
+            borderColor: searchQuery ? (settings.accentColor || '#0078d4') : undefined
+          }}
+          className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border transition-colors ${
+            isDark
+              ? 'bg-[#28303f] border-[#364154] text-[#f1f5f9]'
+              : 'bg-[#f8fafc] border-[#e2e8f0] text-[#1e293b]'
+          }`}
+        >
           <Search className="w-4 h-4 text-slate-400" />
           <input
             type="text"
@@ -100,10 +105,10 @@ export const StartMenu: React.FC = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cerca app, impostazioni, web app o file..."
             autoFocus
-            className="w-full bg-transparent border-none outline-none text-xs placeholder:text-slate-400"
+            className="w-full bg-transparent border-none outline-none text-sm placeholder:text-slate-400"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery('')} className="text-xs text-slate-400 hover:text-white">
+            <button onClick={() => setSearchQuery('')} className="text-sm text-slate-400 hover:text-white px-1">
               ✕
             </button>
           )}
@@ -310,27 +315,30 @@ export const StartMenu: React.FC = () => {
       </div>
 
       {/* Footer Profile & Actions */}
-      <div className={`p-3 px-4 border-t flex items-center justify-between text-xs ${
-        isDark ? 'bg-slate-800/70 border-slate-700/80' : 'bg-slate-100 border-slate-200'
+      <div className={`p-3 px-4 border-t flex items-center justify-between text-sm ${
+        isDark ? 'bg-[#242a38] border-[#343e52]' : 'bg-[#f8fafc] border-[#e2e8f0]'
       }`}>
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs">
+        <div className="flex items-center gap-3">
+          <div
+            style={{ backgroundColor: settings.accentColor || '#0078d4' }}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs"
+          >
             <User className="w-4 h-4" />
           </div>
           <div>
-            <div className="font-semibold text-xs leading-none">Utente Tablet</div>
-            <div className="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
-              <HardDrive className="w-3 h-3" />
+            <div className="font-semibold text-sm leading-tight">Utente Tablet</div>
+            <div className="text-xs text-emerald-500 font-medium flex items-center gap-1 mt-0.5">
+              <HardDrive className="w-3.5 h-3.5" />
               <span>Memoria: {storageUsedKB} KB usati</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <button
             onClick={toggleFullscreen}
-            className={`p-1.5 rounded-lg transition-colors ${
-              isDark ? 'hover:bg-slate-700 text-slate-300' : 'hover:bg-slate-200 text-slate-700'
+            className={`p-2 rounded-xl transition-colors ${
+              isDark ? 'hover:bg-[#343e52] text-slate-300' : 'hover:bg-slate-200/70 text-slate-700'
             }`}
             title={isFullscreen ? 'Esci da schermo intero' : 'Attiva schermo intero per tablet'}
           >
@@ -339,8 +347,8 @@ export const StartMenu: React.FC = () => {
 
           <button
             onClick={() => window.location.reload()}
-            className={`p-1.5 rounded-lg transition-colors hover:text-amber-400 ${
-              isDark ? 'hover:bg-slate-700 text-slate-300' : 'hover:bg-slate-200 text-slate-700'
+            className={`p-2 rounded-xl transition-colors hover:text-amber-400 ${
+              isDark ? 'hover:bg-[#343e52] text-slate-300' : 'hover:bg-slate-200/70 text-slate-700'
             }`}
             title="Riavvia WinLite OS"
           >

@@ -57,43 +57,46 @@ export const CalendarFlyout: React.FC = () => {
       onClick={(e) => e.stopPropagation()}
       style={{
         zIndex: 9000,
-        bottom: '56px',
+        bottom: '60px',
         right: '12px',
       }}
-      className={`fixed w-[92vw] sm:w-[320px] p-4 rounded-2xl border shadow-2xl backdrop-blur-xl flex flex-col select-none ${
+      className={`fixed w-[92vw] sm:w-[340px] p-4 rounded-2xl border shadow-2xl backdrop-blur-xl flex flex-col select-none ${
         isDark
-          ? 'bg-slate-900/90 border-slate-700/80 text-white shadow-black/60'
-          : 'bg-white/95 border-slate-200/90 text-slate-800 shadow-slate-900/30'
+          ? 'bg-[#1c212d]/98 border-[#343e52] text-[#e2e8f0] shadow-black/70'
+          : 'bg-white/98 border-[#e2e8f0] text-[#1e293b] shadow-2xl shadow-slate-900/20'
       }`}
     >
       {/* Time Header */}
-      <div className="pb-3 border-b border-slate-500/10">
+      <div className="pb-3 border-b border-slate-500/15">
         <div className="text-3xl font-light font-mono tracking-tight">
           {currentDate.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
         </div>
-        <div className="text-xs text-blue-500 font-medium capitalize mt-0.5">
+        <div
+          style={{ color: settings.accentColor || '#0078d4' }}
+          className="text-sm font-semibold capitalize mt-1"
+        >
           {currentDate.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
         </div>
       </div>
 
       {/* Calendar Navigation */}
       <div className="py-3 flex items-center justify-between">
-        <span className="text-xs font-semibold">
+        <span className="text-sm font-bold">
           {monthNames[month]} {year}
         </span>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
           <button
             onClick={prevMonth}
-            className={`p-1 rounded-lg transition-colors ${
-              isDark ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-slate-100 text-slate-600'
+            className={`p-1.5 rounded-lg transition-colors ${
+              isDark ? 'hover:bg-[#28303f] text-slate-300' : 'hover:bg-slate-100 text-slate-600'
             }`}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={nextMonth}
-            className={`p-1 rounded-lg transition-colors ${
-              isDark ? 'hover:bg-slate-800 text-slate-400' : 'hover:bg-slate-100 text-slate-600'
+            className={`p-1.5 rounded-lg transition-colors ${
+              isDark ? 'hover:bg-[#28303f] text-slate-300' : 'hover:bg-slate-100 text-slate-600'
             }`}
           >
             <ChevronRight className="w-4 h-4" />
@@ -102,7 +105,7 @@ export const CalendarFlyout: React.FC = () => {
       </div>
 
       {/* Calendar Weekday Row */}
-      <div className="grid grid-cols-7 gap-1 text-center text-[10px] text-slate-400 font-semibold mb-1">
+      <div className="grid grid-cols-7 gap-1 text-center text-xs text-slate-400 font-bold mb-1">
         {daysOfWeek.map(d => (
           <div key={d} className="py-1">
             {d}
@@ -111,9 +114,9 @@ export const CalendarFlyout: React.FC = () => {
       </div>
 
       {/* Calendar Days */}
-      <div className="grid grid-cols-7 gap-1 text-center text-xs">
+      <div className="grid grid-cols-7 gap-1 text-center text-xs sm:text-sm">
         {Array.from({ length: firstDay }).map((_, i) => (
-          <div key={`empty-${i}`} className="py-1.5" />
+          <div key={`empty-${i}`} className="py-2" />
         ))}
         {Array.from({ length: daysInMonth }).map((_, i) => {
           const day = i + 1;
@@ -121,10 +124,13 @@ export const CalendarFlyout: React.FC = () => {
           return (
             <div
               key={`day-${day}`}
-              className={`py-1.5 rounded-lg font-medium transition-colors cursor-pointer ${
+              style={{
+                backgroundColor: today ? (settings.accentColor || '#0078d4') : undefined
+              }}
+              className={`py-2 rounded-xl font-medium transition-colors cursor-pointer ${
                 today
-                  ? 'bg-blue-600 text-white font-bold shadow-xs'
-                  : isDark ? 'hover:bg-slate-800 text-slate-200' : 'hover:bg-slate-100 text-slate-800'
+                  ? 'text-white font-bold shadow-xs'
+                  : isDark ? 'hover:bg-[#28303f] text-slate-300' : 'hover:bg-slate-100 text-slate-800'
               }`}
             >
               {day}

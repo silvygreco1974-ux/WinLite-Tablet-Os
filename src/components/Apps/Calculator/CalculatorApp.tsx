@@ -89,14 +89,18 @@ export const CalculatorApp: React.FC = () => {
     setWaitingForOperand(true);
   };
 
+  const currentAccent = settings.accentColor || '#0078d4';
+
   return (
-    <div className={`flex flex-col h-full select-none ${isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'}`}>
+    <div className={`flex flex-col h-full select-none ${isDark ? 'bg-[#1c212d] text-[#e2e8f0]' : 'bg-[#ffffff] text-[#1e293b]'}`}>
       {/* Top Display */}
-      <div className="p-4 flex flex-col justify-end items-end h-28 border-b border-slate-500/10 relative">
+      <div className={`p-4 flex flex-col justify-end items-end h-28 border-b relative ${
+        isDark ? 'bg-[#242a38] border-[#364154]' : 'bg-[#f8fafc] border-[#e2e8f0]'
+      }`}>
         <button
           onClick={() => setShowHistory(prev => !prev)}
-          className={`absolute top-2 left-2 p-1.5 rounded transition-colors ${
-            showHistory ? 'text-blue-500 bg-blue-500/10' : 'text-slate-400 hover:text-slate-200'
+          className={`absolute top-2 left-2 p-2 rounded-xl transition-colors ${
+            showHistory ? 'text-blue-500 bg-blue-500/15' : 'text-slate-400 hover:text-slate-200'
           }`}
           title="Cronologia calcoli"
         >
@@ -106,17 +110,17 @@ export const CalculatorApp: React.FC = () => {
         <div className="text-xs text-slate-400 h-4 font-mono">
           {prevValue !== null ? `${prevValue} ${operation || ''}` : ''}
         </div>
-        <div className="text-3xl sm:text-4xl font-light font-mono truncate max-w-full tracking-tight">
+        <div className="text-3xl sm:text-4xl font-normal font-mono truncate max-w-full tracking-tight">
           {display}
         </div>
       </div>
 
       {/* History Flyout */}
       {showHistory && (
-        <div className={`p-3 border-b max-h-32 overflow-y-auto text-xs font-mono space-y-1 ${
-          isDark ? 'bg-slate-800 text-slate-300' : 'bg-slate-100 text-slate-700'
+        <div className={`p-3.5 border-b max-h-36 overflow-y-auto text-xs font-mono space-y-1 ${
+          isDark ? 'bg-[#202532] border-[#364154] text-slate-200' : 'bg-[#f1f5f9] border-[#e2e8f0] text-slate-700'
         }`}>
-          <div className="flex items-center justify-between text-[11px] font-sans text-slate-400 mb-1">
+          <div className="flex items-center justify-between text-xs font-sans text-slate-400 mb-1 font-semibold">
             <span>Cronologia</span>
             <button onClick={() => setHistory([])} className="hover:text-red-400">Pulisci</button>
           </div>
@@ -129,34 +133,35 @@ export const CalculatorApp: React.FC = () => {
       )}
 
       {/* Keypad */}
-      <div className="flex-1 p-3 grid grid-cols-4 gap-1.5">
+      <div className="flex-1 p-3.5 grid grid-cols-4 gap-2">
         <button
           onClick={clearAll}
-          className={`rounded-lg font-medium text-xs sm:text-sm transition-colors ${
-            isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-amber-400' : 'bg-slate-100 hover:bg-slate-200 text-amber-700'
+          className={`rounded-xl font-bold text-sm sm:text-base transition-colors ${
+            isDark ? 'bg-[#242a38] hover:bg-[#2e3749] text-amber-400' : 'bg-[#f1f5f9] hover:bg-slate-200 text-amber-700'
           }`}
         >
           C
         </button>
         <button
           onClick={deleteLast}
-          className={`rounded-lg font-medium text-xs sm:text-sm transition-colors flex items-center justify-center ${
-            isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-slate-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+          className={`rounded-xl font-medium text-sm sm:text-base transition-colors flex items-center justify-center ${
+            isDark ? 'bg-[#242a38] hover:bg-[#2e3749] text-slate-300' : 'bg-[#f1f5f9] hover:bg-slate-200 text-slate-700'
           }`}
         >
           <Delete className="w-4 h-4" />
         </button>
         <button
           onClick={() => performOperation('%')}
-          className={`rounded-lg font-medium text-xs sm:text-sm transition-colors ${
-            isDark ? 'bg-slate-800/80 hover:bg-slate-700 text-blue-400' : 'bg-slate-100 hover:bg-slate-200 text-blue-600'
+          className={`rounded-xl font-bold text-sm sm:text-base transition-colors ${
+            isDark ? 'bg-[#242a38] hover:bg-[#2e3749] text-blue-400' : 'bg-[#f1f5f9] hover:bg-slate-200 text-blue-600'
           }`}
         >
           %
         </button>
         <button
           onClick={() => performOperation('÷')}
-          className="rounded-lg font-medium text-base bg-blue-600/90 hover:bg-blue-600 text-white transition-colors"
+          style={{ backgroundColor: currentAccent }}
+          className="rounded-xl font-bold text-xl text-white transition-opacity hover:opacity-90 shadow-xs"
         >
           ÷
         </button>
@@ -166,8 +171,10 @@ export const CalculatorApp: React.FC = () => {
           <button
             key={d}
             onClick={() => inputDigit(d)}
-            className={`rounded-lg font-medium text-base transition-colors ${
-              isDark ? 'bg-slate-800/60 hover:bg-slate-700 text-white' : 'bg-white hover:bg-slate-100 text-slate-900 border border-slate-200/60'
+            className={`rounded-xl font-semibold text-lg sm:text-xl transition-all ${
+              isDark
+                ? 'bg-[#242a38] hover:bg-[#2f384b] text-[#f1f5f9] border border-[#364154]/50'
+                : 'bg-white hover:bg-slate-50 text-[#0f172a] border border-[#e2e8f0] shadow-xs'
             }`}
           >
             {d}
@@ -175,7 +182,8 @@ export const CalculatorApp: React.FC = () => {
         ))}
         <button
           onClick={() => performOperation('×')}
-          className="rounded-lg font-medium text-base bg-blue-600/90 hover:bg-blue-600 text-white transition-colors"
+          style={{ backgroundColor: currentAccent }}
+          className="rounded-xl font-bold text-xl text-white transition-opacity hover:opacity-90 shadow-xs"
         >
           ×
         </button>
@@ -185,8 +193,10 @@ export const CalculatorApp: React.FC = () => {
           <button
             key={d}
             onClick={() => inputDigit(d)}
-            className={`rounded-lg font-medium text-base transition-colors ${
-              isDark ? 'bg-slate-800/60 hover:bg-slate-700 text-white' : 'bg-white hover:bg-slate-100 text-slate-900 border border-slate-200/60'
+            className={`rounded-xl font-semibold text-lg sm:text-xl transition-all ${
+              isDark
+                ? 'bg-[#242a38] hover:bg-[#2f384b] text-[#f1f5f9] border border-[#364154]/50'
+                : 'bg-white hover:bg-slate-50 text-[#0f172a] border border-[#e2e8f0] shadow-xs'
             }`}
           >
             {d}
@@ -194,7 +204,8 @@ export const CalculatorApp: React.FC = () => {
         ))}
         <button
           onClick={() => performOperation('-')}
-          className="rounded-lg font-medium text-base bg-blue-600/90 hover:bg-blue-600 text-white transition-colors"
+          style={{ backgroundColor: currentAccent }}
+          className="rounded-xl font-bold text-xl text-white transition-opacity hover:opacity-90 shadow-xs"
         >
           -
         </button>
@@ -204,8 +215,10 @@ export const CalculatorApp: React.FC = () => {
           <button
             key={d}
             onClick={() => inputDigit(d)}
-            className={`rounded-lg font-medium text-base transition-colors ${
-              isDark ? 'bg-slate-800/60 hover:bg-slate-700 text-white' : 'bg-white hover:bg-slate-100 text-slate-900 border border-slate-200/60'
+            className={`rounded-xl font-semibold text-lg sm:text-xl transition-all ${
+              isDark
+                ? 'bg-[#242a38] hover:bg-[#2f384b] text-[#f1f5f9] border border-[#364154]/50'
+                : 'bg-white hover:bg-slate-50 text-[#0f172a] border border-[#e2e8f0] shadow-xs'
             }`}
           >
             {d}
@@ -213,7 +226,8 @@ export const CalculatorApp: React.FC = () => {
         ))}
         <button
           onClick={() => performOperation('+')}
-          className="rounded-lg font-medium text-base bg-blue-600/90 hover:bg-blue-600 text-white transition-colors"
+          style={{ backgroundColor: currentAccent }}
+          className="rounded-xl font-bold text-xl text-white transition-opacity hover:opacity-90 shadow-xs"
         >
           +
         </button>
@@ -224,31 +238,36 @@ export const CalculatorApp: React.FC = () => {
             const val = parseFloat(display);
             setDisplay(String(-val));
           }}
-          className={`rounded-lg font-medium text-sm transition-colors ${
-            isDark ? 'bg-slate-800/60 hover:bg-slate-700 text-slate-300' : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/60'
+          className={`rounded-xl font-semibold text-base transition-colors ${
+            isDark ? 'bg-[#242a38] hover:bg-[#2e3749] text-slate-300' : 'bg-[#f1f5f9] hover:bg-slate-200 text-slate-700'
           }`}
         >
           ±
         </button>
         <button
           onClick={() => inputDigit('0')}
-          className={`rounded-lg font-medium text-base transition-colors ${
-            isDark ? 'bg-slate-800/60 hover:bg-slate-700 text-white' : 'bg-white hover:bg-slate-100 text-slate-900 border border-slate-200/60'
+          className={`rounded-xl font-semibold text-lg sm:text-xl transition-all ${
+            isDark
+              ? 'bg-[#242a38] hover:bg-[#2f384b] text-[#f1f5f9] border border-[#364154]/50'
+              : 'bg-white hover:bg-slate-50 text-[#0f172a] border border-[#e2e8f0] shadow-xs'
           }`}
         >
           0
         </button>
         <button
           onClick={inputDot}
-          className={`rounded-lg font-medium text-base transition-colors ${
-            isDark ? 'bg-slate-800/60 hover:bg-slate-700 text-slate-300' : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200/60'
+          className={`rounded-xl font-semibold text-lg sm:text-xl transition-all ${
+            isDark
+              ? 'bg-[#242a38] hover:bg-[#2f384b] text-[#f1f5f9] border border-[#364154]/50'
+              : 'bg-white hover:bg-slate-50 text-[#0f172a] border border-[#e2e8f0] shadow-xs'
           }`}
         >
           .
         </button>
         <button
           onClick={calculateEquals}
-          className="rounded-lg font-medium text-base bg-blue-500 hover:bg-blue-600 text-white transition-colors shadow-sm"
+          style={{ backgroundColor: currentAccent }}
+          className="rounded-xl font-bold text-xl text-white transition-opacity hover:opacity-90 shadow-md"
         >
           =
         </button>

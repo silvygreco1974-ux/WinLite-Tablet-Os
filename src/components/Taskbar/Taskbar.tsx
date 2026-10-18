@@ -94,10 +94,10 @@ export const Taskbar: React.FC = () => {
     <div
       onClick={(e) => e.stopPropagation()}
       style={{ zIndex: 8500 }}
-      className={`fixed bottom-0 left-0 right-0 h-12 flex items-center justify-between px-2 sm:px-3 border-t select-none backdrop-blur-xl ${
+      className={`fixed bottom-0 left-0 right-0 h-13 flex items-center justify-between px-2 sm:px-3 border-t select-none backdrop-blur-xl ${
         isDark
-          ? 'bg-slate-900/85 border-slate-700/60 text-slate-100'
-          : 'bg-white/85 border-slate-200/80 text-slate-800 shadow-md'
+          ? 'bg-[#1f2635]/95 border-[#37445a] text-[#f8fafc]'
+          : 'bg-[#f8f6f0]/96 border-[#ded7cc] text-[#0f172a] shadow-lg shadow-stone-900/10'
       }`}
     >
       {/* Left: Quick Tablet Status / Spacer */}
@@ -108,20 +108,23 @@ export const Taskbar: React.FC = () => {
             closeAllFlyouts();
             setIsStartMenuOpen(next);
           }}
-          className={`flex items-center justify-center p-2 rounded-xl transition-all ${
+          style={{
+            backgroundColor: isStartMenuOpen ? `${settings.accentColor}25` : undefined
+          }}
+          className={`flex items-center justify-center p-2.5 rounded-xl transition-all ${
             isStartMenuOpen
-              ? 'bg-blue-600/20 text-blue-500 scale-95'
-              : isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-200/70'
+              ? 'scale-95 ring-1 ring-accent'
+              : isDark ? 'hover:bg-[#28303f]' : 'hover:bg-slate-100'
           }`}
           title="Start"
           aria-label="Start"
         >
           {/* Windows 11 4-square logo */}
           <div className="grid grid-cols-2 gap-0.5 w-4 h-4">
-            <div className="bg-[#0078d4] rounded-[1px]" />
-            <div className="bg-[#0078d4] rounded-[1px]" />
-            <div className="bg-[#0078d4] rounded-[1px]" />
-            <div className="bg-[#0078d4] rounded-[1px]" />
+            <div className="rounded-[1.5px]" style={{ backgroundColor: settings.accentColor || '#0078d4' }} />
+            <div className="rounded-[1.5px]" style={{ backgroundColor: settings.accentColor || '#0078d4' }} />
+            <div className="rounded-[1.5px]" style={{ backgroundColor: settings.accentColor || '#0078d4' }} />
+            <div className="rounded-[1.5px]" style={{ backgroundColor: settings.accentColor || '#0078d4' }} />
           </div>
         </button>
 
@@ -132,7 +135,7 @@ export const Taskbar: React.FC = () => {
             setIsStartMenuOpen(true);
           }}
           className={`p-2 rounded-xl transition-colors hidden sm:flex items-center text-slate-400 ${
-            isDark ? 'hover:bg-slate-800 hover:text-slate-200' : 'hover:bg-slate-200 hover:text-slate-800'
+            isDark ? 'hover:bg-[#28303f] hover:text-slate-200' : 'hover:bg-slate-100 hover:text-slate-800'
           }`}
           title="Cerca"
         >
@@ -169,9 +172,12 @@ export const Taskbar: React.FC = () => {
               {/* Running Pill Indicator */}
               {isRunning && (
                 <div
+                  style={{
+                    backgroundColor: isActive ? (settings.accentColor || '#0078d4') : undefined
+                  }}
                   className={`absolute bottom-0.5 rounded-full transition-all ${
                     isActive
-                      ? 'w-4 h-1 bg-blue-500'
+                      ? 'w-4 h-1'
                       : 'w-1.5 h-1 bg-slate-400'
                   }`}
                 />
@@ -214,8 +220,11 @@ export const Taskbar: React.FC = () => {
 
               {isRunning && (
                 <div
+                  style={{
+                    backgroundColor: isActive ? (settings.accentColor || '#0078d4') : undefined
+                  }}
                   className={`absolute bottom-0.5 rounded-full transition-all ${
-                    isActive ? 'w-4 h-1 bg-blue-500' : 'w-1.5 h-1 bg-slate-400'
+                    isActive ? 'w-4 h-1' : 'w-1.5 h-1 bg-slate-400'
                   }`}
                 />
               )}
@@ -239,12 +248,18 @@ export const Taskbar: React.FC = () => {
                 }`}
                 title={win.title}
               >
-                <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-xs">
+                <div
+                  className="w-7 h-7 rounded-lg flex items-center justify-center text-white shadow-xs"
+                  style={{ backgroundColor: settings.accentColor || '#0078d4' }}
+                >
                   <AppIcon name={win.icon} className="w-4 h-4 text-white" />
                 </div>
                 <div
+                  style={{
+                    backgroundColor: isActive ? (settings.accentColor || '#0078d4') : undefined
+                  }}
                   className={`absolute bottom-0.5 rounded-full transition-all ${
-                    isActive ? 'w-4 h-1 bg-blue-500' : 'w-1.5 h-1 bg-slate-400'
+                    isActive ? 'w-4 h-1' : 'w-1.5 h-1 bg-slate-400'
                   }`}
                 />
               </button>
@@ -253,7 +268,7 @@ export const Taskbar: React.FC = () => {
       </div>
 
       {/* Right: System Tray */}
-      <div className="flex items-center gap-1 shrink-0">
+      <div className="flex items-center gap-1.5 shrink-0">
         {/* PWA Install Button */}
         <PWAInstallButton variant="taskbar" />
 
@@ -263,7 +278,7 @@ export const Taskbar: React.FC = () => {
           className={`p-2 rounded-xl transition-colors flex items-center gap-1 ${
             isFullscreen
               ? 'text-blue-500 bg-blue-500/10'
-              : isDark ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-200 text-slate-700'
+              : isDark ? 'hover:bg-[#28303f] text-slate-300' : 'hover:bg-slate-100 text-slate-700'
           }`}
           title={isFullscreen ? 'Riduci da schermo intero' : 'Schermo Intero per Tablet'}
         >
@@ -277,18 +292,18 @@ export const Taskbar: React.FC = () => {
             closeAllFlyouts();
             setIsActionCenterOpen(next);
           }}
-          className={`flex items-center gap-1.5 px-2 py-1.5 rounded-xl transition-all ${
+          className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl transition-all ${
             isActionCenterOpen
               ? 'bg-blue-600/20 text-blue-500'
-              : isDark ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-200 text-slate-700'
+              : isDark ? 'hover:bg-[#28303f] text-slate-300' : 'hover:bg-slate-100 text-slate-700'
           }`}
           title="Centro Notifiche & Impostazioni Rapide"
         >
-          <Wifi className="w-3.5 h-3.5" />
-          <Volume2 className="w-3.5 h-3.5" />
-          <Battery className="w-3.5 h-3.5" />
+          <Wifi className="w-4 h-4" />
+          <Volume2 className="w-4 h-4" />
+          <Battery className="w-4 h-4" />
           {batteryLevel !== null && (
-            <span className="text-[10px] font-mono hidden md:inline">{batteryLevel}%</span>
+            <span className="text-xs font-semibold hidden md:inline">{batteryLevel}%</span>
           )}
         </button>
 
@@ -299,17 +314,17 @@ export const Taskbar: React.FC = () => {
             closeAllFlyouts();
             setIsCalendarOpen(next);
           }}
-          className={`flex flex-col items-end px-2 py-1 rounded-xl transition-all text-right leading-tight ${
+          className={`flex flex-col items-end px-2.5 py-1 rounded-xl transition-all text-right leading-tight ${
             isCalendarOpen
               ? 'bg-blue-600/20 text-blue-500'
-              : isDark ? 'hover:bg-slate-800 text-slate-200' : 'hover:bg-slate-200 text-slate-800'
+              : isDark ? 'hover:bg-[#28303f] text-slate-200' : 'hover:bg-slate-100 text-slate-800'
           }`}
           title="Orologio e Calendario"
         >
-          <span className="text-xs font-mono font-medium">
+          <span className="text-sm font-semibold tracking-tight">
             {currentTime.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
           </span>
-          <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">
             {currentTime.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' })}
           </span>
         </button>
@@ -322,7 +337,7 @@ export const Taskbar: React.FC = () => {
               if (!w.isMinimized) minimizeWindow(w.id);
             });
           }}
-          className="w-1.5 h-8 border-l border-slate-500/20 hover:bg-white/20 cursor-pointer ml-1 transition-colors"
+          className="w-2 h-8 border-l border-slate-500/20 hover:bg-white/25 cursor-pointer ml-1 transition-colors"
           title="Mostra Desktop"
         />
       </div>

@@ -252,6 +252,8 @@ export const Desktop: React.FC = () => {
               left: `${pos.x}px`,
               top: `${pos.y}px`,
               zIndex: isDragging ? 30 : 1,
+              borderColor: isSelected ? settings.accentColor : undefined,
+              boxShadow: isSelected ? `0 0 0 2px ${settings.accentColor}` : undefined,
             }}
             className={`absolute flex flex-col items-center justify-center rounded-2xl cursor-grab active:cursor-grabbing transition-transform touch-none ${
               settings.tabletMode ? 'w-24 h-26 p-2' : 'w-20 h-22 p-1.5'
@@ -259,7 +261,7 @@ export const Desktop: React.FC = () => {
               isDragging ? 'scale-110 shadow-2xl z-40' : ''
             } ${
               isSelected
-                ? 'bg-white/25 backdrop-blur-md ring-2 ring-blue-400 shadow-lg'
+                ? 'bg-white/30 backdrop-blur-md shadow-lg ring-2'
                 : 'hover:bg-white/15 hover:backdrop-blur-xs'
             }`}
           >
@@ -284,8 +286,8 @@ export const Desktop: React.FC = () => {
               </div>
             </div>
 
-            {/* Label */}
-            <span className="mt-1.5 text-[11px] font-semibold text-white text-center line-clamp-2 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] px-1 leading-tight select-none">
+            {/* Label with gentle legible pill */}
+            <span className="mt-1.5 text-xs sm:text-sm font-semibold text-white text-center line-clamp-2 px-2 py-0.5 rounded-lg bg-black/45 backdrop-blur-sm shadow-sm leading-snug select-none border border-white/10 max-w-[94px]">
               {item.title}
             </span>
 
@@ -296,7 +298,8 @@ export const Desktop: React.FC = () => {
                   e.stopPropagation();
                   item.action();
                 }}
-                className="mt-1 px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold shadow-md animate-in fade-in"
+                style={{ backgroundColor: settings.accentColor || '#0078d4' }}
+                className="mt-1 px-3 py-1 rounded-full text-white text-xs font-bold shadow-md animate-in fade-in"
               >
                 Apri
               </button>
@@ -304,8 +307,6 @@ export const Desktop: React.FC = () => {
           </div>
         );
       })}
-
-
 
       {/* Pinned Sticky Notes on Wallpaper */}
       {pinnedStickyNotes.map(note => (
@@ -317,14 +318,14 @@ export const Desktop: React.FC = () => {
         <div
           onClick={(e) => e.stopPropagation()}
           style={{
-            left: `${Math.min(contextMenu.x, window.innerWidth - 240)}px`,
-            top: `${Math.min(contextMenu.y, window.innerHeight - 300)}px`,
+            left: `${Math.min(contextMenu.x, window.innerWidth - 260)}px`,
+            top: `${Math.min(contextMenu.y, window.innerHeight - 340)}px`,
             zIndex: 9999,
           }}
-          className={`fixed w-60 p-2 rounded-2xl border shadow-2xl backdrop-blur-xl text-xs select-none ${
+          className={`fixed w-64 p-2.5 rounded-2xl border shadow-2xl backdrop-blur-xl text-sm select-none ${
             isDark
-              ? 'bg-slate-900/95 border-slate-700 text-slate-200'
-              : 'bg-white/95 border-slate-200 text-slate-800'
+              ? 'bg-[#242a38]/98 border-[#364154] text-[#f1f5f9] shadow-black/60'
+              : 'bg-[#faf8f5]/98 border-[#ded7cc] text-[#0f172a] shadow-2xl shadow-stone-900/20'
           }`}
         >
           <button
@@ -332,7 +333,7 @@ export const Desktop: React.FC = () => {
               openWindow('text-editor');
               setContextMenu(null);
             }}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left font-medium"
           >
             <FileText className="w-4 h-4 text-blue-400" />
             <span>Nuovo Documento</span>
@@ -343,7 +344,7 @@ export const Desktop: React.FC = () => {
               addStickyNote('yellow', 'Nuova Nota', '', false);
               setContextMenu(null);
             }}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left font-medium"
           >
             <StickyIcon className="w-4 h-4 text-amber-400" />
             <span>Nuova Nota Adesiva</span>
@@ -354,7 +355,7 @@ export const Desktop: React.FC = () => {
               openWindow('web-manager');
               setContextMenu(null);
             }}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left font-medium"
           >
             <Plus className="w-4 h-4 text-emerald-400" />
             <span>Aggiungi Web App</span>
@@ -368,7 +369,7 @@ export const Desktop: React.FC = () => {
               resetDesktopIcons();
               setContextMenu(null);
             }}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left font-medium"
           >
             <LayoutGrid className="w-4 h-4 text-cyan-400" />
             <span>Allinea Icone Desktop</span>
@@ -380,13 +381,13 @@ export const Desktop: React.FC = () => {
               updateSettings({ singleTapOpen: !settings.singleTapOpen });
               setContextMenu(null);
             }}
-            className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left"
+            className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left font-medium"
           >
             <div className="flex items-center gap-3">
               <Check className={`w-4 h-4 ${settings.singleTapOpen ? 'text-emerald-400' : 'opacity-0'}`} />
               <span>Tocco singolo per aprire</span>
             </div>
-            <span className="text-[10px] text-slate-400">{settings.singleTapOpen ? 'Attivo' : 'Doppio'}</span>
+            <span className="text-xs text-slate-400">{settings.singleTapOpen ? 'Attivo' : 'Doppio'}</span>
           </button>
 
           <button
@@ -394,7 +395,7 @@ export const Desktop: React.FC = () => {
               toggleFullscreen();
               setContextMenu(null);
             }}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left font-medium"
           >
             <Maximize2 className="w-4 h-4 text-purple-400" />
             <span>{isFullscreen ? 'Esci da Schermo Intero' : 'Schermo Intero Tablet'}</span>
@@ -405,7 +406,7 @@ export const Desktop: React.FC = () => {
               openWindow('settings');
               setContextMenu(null);
             }}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left"
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors text-left font-medium"
           >
             <Palette className="w-4 h-4 text-rose-400" />
             <span>Personalizza Sfondo</span>

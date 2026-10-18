@@ -203,7 +203,7 @@ export const OSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       case 'code-editor':
         return { title: 'Code Studio', icon: 'Code', width: Math.min(window.innerWidth * 0.8, 980), height: Math.min(window.innerHeight * 0.8, 680) };
       case 'sticky-notes':
-        return { title: 'Note Adesive', icon: 'StickyNote', width: 440, height: 500 };
+        return { title: 'Note Adesive', icon: 'StickyNote', width: Math.min(window.innerWidth * 0.78, 880), height: Math.min(window.innerHeight * 0.8, 620) };
       case 'web-manager':
         return { title: 'Le Mie Web App', icon: 'Globe', width: Math.min(window.innerWidth * 0.7, 820), height: 580 };
       case 'web-viewer':
@@ -345,8 +345,8 @@ export const OSProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       color,
       x: 60 + Math.random() * 100,
       y: 80 + Math.random() * 100,
-      width: 260,
-      height: 220,
+      width: 350,
+      height: 300,
       isPinnedToDesktop: true,
       isChecklist,
       checklistItems: isChecklist ? [{ id: 'chk-1', text: 'Nuova voce', done: false }] : [],

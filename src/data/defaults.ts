@@ -2,52 +2,53 @@ import { CustomWebApp, StickyNote, SystemSettings, VirtualFile, WallpaperOption 
 
 export const DEFAULT_WALLPAPERS: WallpaperOption[] = [
   {
-    id: 'win11-bloom-dark',
-    name: 'Windows Bloom Scuro',
-    url: 'linear-gradient(135deg, #0a1128 0%, #101f42 35%, #1e3a8a 70%, #0d1b2a 100%)',
-    previewUrl: 'linear-gradient(135deg, #0a1128, #1e3a8a)',
+    id: 'nordic-midnight',
+    name: 'Notte Velluto e Ardesia (Riposo Occhi)',
+    url: 'linear-gradient(135deg, #182232 0%, #202d44 40%, #2b3b55 75%, #18202e 100%)',
+    previewUrl: 'linear-gradient(135deg, #182232, #2b3b55)',
     type: 'dark'
   },
   {
-    id: 'win11-bloom-light',
-    name: 'Windows Bloom Chiaro',
-    url: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 30%, #bfdbfe 60%, #e0f2fe 100%)',
-    previewUrl: 'linear-gradient(135deg, #e0e7ff, #bfdbfe)',
+    id: 'warm-sand-dawn',
+    name: 'Alba Calda e Sabbia (Zero Abbagliamento)',
+    url: 'linear-gradient(135deg, #f7f3ea 0%, #ede4d1 40%, #e0d2ba 75%, #d1bf9f 100%)',
+    previewUrl: 'linear-gradient(135deg, #f7f3ea, #d1bf9f)',
     type: 'light'
   },
   {
-    id: 'aurora-sunset',
-    name: 'Aurora Tramonto',
-    url: 'linear-gradient(135deg, #0f172a 0%, #311042 40%, #701a75 75%, #0369a1 100%)',
-    previewUrl: 'linear-gradient(135deg, #0f172a, #701a75)',
-    type: 'dark'
-  },
-  {
-    id: 'emerald-flow',
-    name: 'Smeraldo Nordico',
-    url: 'linear-gradient(135deg, #022c22 0%, #064e3b 40%, #047857 70%, #0f172a 100%)',
-    previewUrl: 'linear-gradient(135deg, #022c22, #047857)',
-    type: 'dark'
-  },
-  {
-    id: 'cyber-minimal',
-    name: 'Minimal Deep Slate',
-    url: 'linear-gradient(135deg, #090d16 0%, #111827 50%, #1f2937 100%)',
-    previewUrl: 'linear-gradient(135deg, #090d16, #1f2937)',
-    type: 'dark'
-  },
-  {
-    id: 'warm-sand',
-    name: 'Duna Chiara',
-    url: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 35%, #fed7aa 70%, #f3f4f6 100%)',
-    previewUrl: 'linear-gradient(135deg, #fef3c7, #fed7aa)',
+    id: 'calm-sky-soft',
+    name: 'Cielo Azzurro Calmo e Delicato',
+    url: 'linear-gradient(135deg, #e4ecf7 0%, #cfdef3 45%, #b5cde9 75%, #9ab9dd 100%)',
+    previewUrl: 'linear-gradient(135deg, #e4ecf7, #9ab9dd)',
     type: 'light'
+  },
+  {
+    id: 'sage-forest',
+    name: 'Foresta Salvia e Menta',
+    url: 'linear-gradient(135deg, #172a24 0%, #213c33 40%, #2d5246 75%, #1b3029 100%)',
+    previewUrl: 'linear-gradient(135deg, #172a24, #2d5246)',
+    type: 'dark'
+  },
+  {
+    id: 'warm-amber-sunset',
+    name: 'Tramonto Ambra e Velluto',
+    url: 'linear-gradient(135deg, #24192b 0%, #3d2338 40%, #592d47 75%, #1f1828 100%)',
+    previewUrl: 'linear-gradient(135deg, #24192b, #592d47)',
+    type: 'dark'
+  },
+  {
+    id: 'soft-charcoal',
+    name: 'Ardesia Morbida Antiriflesso',
+    url: 'linear-gradient(135deg, #1e2430 0%, #273142 50%, #303d52 100%)',
+    previewUrl: 'linear-gradient(135deg, #1e2430, #303d52)',
+    type: 'dark'
   }
 ];
 
 export const INITIAL_SETTINGS: SystemSettings = {
   wallpaper: DEFAULT_WALLPAPERS[0].url,
   theme: 'dark',
+  fontSizeScale: 'large', // Default to 'large' for comfortable reading for human eyes!
   accentColor: '#0078d4', // Windows Blue
   tabletMode: true,
   singleTapOpen: true, // Default to single tap for tablet touch screens!
@@ -126,8 +127,8 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     color: 'yellow',
     x: 28,
     y: 80,
-    width: 280,
-    height: 240,
+    width: 360,
+    height: 320,
     isPinnedToDesktop: true,
     isChecklist: false,
     checklistItems: [],
@@ -138,10 +139,10 @@ export const INITIAL_STICKY_NOTES: StickyNote[] = [
     title: '📝 Cose da Fare',
     content: '',
     color: 'green',
-    x: 320,
+    x: 410,
     y: 80,
-    width: 260,
-    height: 220,
+    width: 340,
+    height: 320,
     isPinnedToDesktop: true,
     isChecklist: true,
     checklistItems: [

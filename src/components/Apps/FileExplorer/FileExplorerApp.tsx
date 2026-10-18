@@ -140,7 +140,7 @@ export const FileExplorerApp: React.FC = () => {
   return (
     <div
       onClick={() => setActiveMenuFileId(null)}
-      className={`flex flex-col h-full select-none ${isDark ? 'bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-800'}`}
+      className={`flex flex-col h-full select-none ${isDark ? 'bg-[#1c212d] text-[#e2e8f0]' : 'bg-[#ffffff] text-[#1e293b]'}`}
     >
       {/* Toast Notification */}
       {toastMessage && (
@@ -154,15 +154,16 @@ export const FileExplorerApp: React.FC = () => {
       )}
 
       {/* Windows 11 Clean Ribbon Toolbar */}
-      <div className={`px-4 py-2 border-b flex flex-wrap items-center justify-between gap-2 text-xs shrink-0 ${
-        isDark ? 'bg-slate-800/90 border-slate-700' : 'bg-white border-slate-200'
+      <div className={`px-4 py-2.5 border-b flex flex-wrap items-center justify-between gap-2 text-sm shrink-0 ${
+        isDark ? 'bg-[#242a38] border-[#364154]' : 'bg-[#f8fafc] border-[#e2e8f0] text-slate-900'
       }`}>
         {/* Left Actions */}
         <div className="flex items-center gap-1.5 flex-wrap">
           {/* Nuovo File */}
           <button
             onClick={() => setShowNewFileModal(true)}
-            className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold flex items-center gap-1.5 transition-colors shadow-xs min-h-[38px]"
+            style={{ backgroundColor: settings.accentColor || '#0078d4' }}
+            className="px-3.5 py-2 rounded-xl text-white font-bold flex items-center gap-1.5 transition-opacity hover:opacity-90 shadow-xs min-h-[38px]"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Nuovo File</span>
@@ -172,15 +173,25 @@ export const FileExplorerApp: React.FC = () => {
 
           {/* Contextual Action Buttons for Selected File */}
           {selectedFile ? (
-            <div className="flex items-center gap-1 bg-blue-500/10 dark:bg-blue-500/20 px-2 py-1 rounded-xl border border-blue-500/30">
-              <span className="text-[11px] font-bold text-blue-500 truncate max-w-[100px] hidden md:inline mr-1">
+            <div
+              style={{
+                borderColor: settings.accentColor ? `${settings.accentColor}50` : undefined,
+                backgroundColor: settings.accentColor ? `${settings.accentColor}18` : undefined
+              }}
+              className="flex items-center gap-1 px-2 py-1 rounded-xl border"
+            >
+              <span
+                style={{ color: settings.accentColor || '#0078d4' }}
+                className="text-[11px] font-bold truncate max-w-[100px] hidden md:inline mr-1"
+              >
                 {selectedFile.name}
               </span>
 
               {/* Apri */}
               <button
                 onClick={() => handleOpenFile(selectedFile)}
-                className="px-2.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold flex items-center gap-1 transition-colors min-h-[32px]"
+                style={{ backgroundColor: settings.accentColor || '#0078d4' }}
+                className="px-2.5 py-1.5 rounded-lg text-white font-bold flex items-center gap-1 transition-opacity hover:opacity-90 min-h-[32px]"
                 title="Apri file"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -269,28 +280,31 @@ export const FileExplorerApp: React.FC = () => {
       {/* Main Workspace (Sidebar + File Grid) */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Sidebar */}
-        <div className={`w-44 sm:w-52 p-3 border-r flex flex-col shrink-0 text-xs ${
-          isDark ? 'bg-slate-800/40 border-slate-700/60' : 'bg-slate-100/70 border-slate-200'
+        <div className={`w-48 sm:w-56 p-3.5 border-r flex flex-col shrink-0 text-sm ${
+          isDark ? 'bg-[#202532] border-[#343e52]' : 'bg-[#f8fafc] border-[#e2e8f0]'
         }`}>
-          <div className="font-bold text-[11px] text-slate-400 uppercase tracking-wider mb-2 px-2">
+          <div className="font-bold text-xs text-slate-400 uppercase tracking-wider mb-2.5 px-2">
             Cartelle
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             {/* Tutti i File */}
             <button
               onClick={() => setSelectedFolder('all')}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all min-h-[40px] ${
+              style={{
+                backgroundColor: selectedFolder === 'all' ? (settings.accentColor || '#0078d4') : undefined
+              }}
+              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all min-h-[42px] ${
                 selectedFolder === 'all'
-                  ? 'bg-blue-600 text-white font-bold shadow-xs'
-                  : isDark ? 'text-slate-300 hover:bg-slate-700/50' : 'text-slate-700 hover:bg-slate-200/60'
+                  ? 'text-white font-bold shadow-xs'
+                  : isDark ? 'text-slate-300 hover:bg-[#28303f]' : 'text-slate-700 hover:bg-slate-200/70'
               }`}
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <HardDrive className="w-4 h-4 shrink-0" />
-                <span>Tutti i File</span>
+                <span className="font-semibold">Tutti i File</span>
               </div>
-              <span className="text-[10px] opacity-70 font-mono">{files.length}</span>
+              <span className="text-xs opacity-75 font-mono">{files.length}</span>
             </button>
 
             {/* Folder buttons */}
@@ -303,29 +317,32 @@ export const FileExplorerApp: React.FC = () => {
                 <button
                   key={f.key}
                   onClick={() => setSelectedFolder(f.key)}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all min-h-[40px] ${
+                  style={{
+                    backgroundColor: isSelected ? (settings.accentColor || '#0078d4') : undefined
+                  }}
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all min-h-[42px] ${
                     isSelected
-                      ? 'bg-blue-600 text-white font-bold shadow-xs'
-                      : isDark ? 'text-slate-300 hover:bg-slate-700/50' : 'text-slate-700 hover:bg-slate-200/60'
+                      ? 'text-white font-bold shadow-xs'
+                      : isDark ? 'text-slate-300 hover:bg-[#28303f]' : 'text-slate-700 hover:bg-slate-200/70'
                   }`}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <IconComp className={`w-4 h-4 ${isSelected ? 'text-white' : f.color}`} />
-                    <span>{f.label}</span>
+                    <span className="font-semibold">{f.label}</span>
                   </div>
-                  <span className="text-[10px] opacity-70 font-mono">{count}</span>
+                  <span className="text-xs opacity-75 font-mono">{count}</span>
                 </button>
               );
             })}
           </div>
 
           {/* Storage Meter */}
-          <div className="mt-auto pt-3 border-t border-slate-500/20 text-[11px]">
-            <div className="flex items-center justify-between text-slate-400 mb-1">
-              <span>Memoria</span>
+          <div className="mt-auto pt-3 border-t border-slate-500/20 text-xs">
+            <div className="flex items-center justify-between text-slate-400 mb-1.5">
+              <span className="font-medium">Memoria</span>
               <span className="font-mono text-emerald-400 font-bold">{storageUsedKB} KB</span>
             </div>
-            <div className="w-full h-1.5 bg-slate-700/40 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-slate-700/40 rounded-full overflow-hidden">
               <div
                 className="h-full bg-emerald-500 rounded-full"
                 style={{ width: `${Math.min(100, Math.max(3, storageUsedKB * 2))}%` }}
@@ -337,18 +354,18 @@ export const FileExplorerApp: React.FC = () => {
         {/* Right Files Area */}
         <div
           onClick={() => setSelectedFileId(null)}
-          className="flex-1 p-4 md:p-6 overflow-auto"
+          className={`flex-1 p-4 md:p-6 overflow-auto ${isDark ? 'bg-[#181b24]' : 'bg-[#f4f6fa]'}`}
         >
           {filteredFiles.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-6 text-slate-400">
               <FolderOpen className="w-12 h-12 text-slate-500/40 mb-2" />
-              <p className="text-sm font-semibold">Nessun file presente</p>
-              <p className="text-xs text-slate-500 mt-1 max-w-xs">
+              <p className="text-base font-semibold">Nessun file presente</p>
+              <p className="text-sm text-slate-500 mt-1 max-w-xs">
                 Tocca "Nuovo File" in alto per creare un documento o codice.
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
               {filteredFiles.map(file => {
                 const isSelected = selectedFileId === file.id;
                 const isMenuOpen = activeMenuFileId === file.id;
@@ -364,12 +381,16 @@ export const FileExplorerApp: React.FC = () => {
                       e.stopPropagation();
                       handleOpenFile(file);
                     }}
-                    className={`relative p-3.5 rounded-2xl border flex flex-col items-center text-center justify-between cursor-pointer transition-all ${
+                    style={{
+                      borderColor: isSelected ? settings.accentColor : undefined,
+                      boxShadow: isSelected ? `0 0 0 2px ${settings.accentColor}` : undefined
+                    }}
+                    className={`relative p-4 rounded-2xl border flex flex-col items-center text-center justify-between cursor-pointer transition-all ${
                       isSelected
-                        ? 'bg-blue-600/15 border-blue-500 shadow-md ring-2 ring-blue-500/40'
+                        ? isDark ? 'bg-[#242a38] text-white shadow-md' : 'bg-white text-slate-900 shadow-md'
                         : isDark
-                        ? 'bg-slate-800/80 border-slate-700/80 hover:bg-slate-800 hover:border-slate-600 shadow-xs'
-                        : 'bg-white border-slate-200 hover:border-slate-300 hover:shadow-sm'
+                        ? 'bg-[#242a38] border-[#364154] hover:border-slate-500 text-[#e2e8f0] shadow-xs'
+                        : 'bg-white border-[#e2e8f0] hover:border-slate-300 shadow-sm text-slate-900'
                     }`}
                   >
                     {/* Top corner 3-dots Menu Button */}

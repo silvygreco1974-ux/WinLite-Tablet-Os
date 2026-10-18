@@ -75,9 +75,12 @@ export interface WallpaperOption {
   type: 'dark' | 'light' | 'abstract';
 }
 
+export type FontSizeScale = 'normal' | 'large' | 'huge';
+
 export interface SystemSettings {
   wallpaper: string;
   theme: 'dark' | 'light';
+  fontSizeScale: FontSizeScale;
   accentColor: string;
   tabletMode: boolean;
   singleTapOpen: boolean;

@@ -186,22 +186,22 @@ export const WebAppManager: React.FC = () => {
   );
 
   return (
-    <div className={`flex flex-col h-full ${isDark ? 'bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
+    <div className={`flex flex-col h-full select-none ${isDark ? 'bg-[#1c212d] text-[#e2e8f0]' : 'bg-[#ffffff] text-[#1e293b]'}`}>
       {/* Top Navigation Bar & Action Buttons */}
       <div className={`px-4 py-3 border-b flex flex-wrap items-center justify-between gap-3 ${
-        isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-300'
+        isDark ? 'bg-[#242a38] border-[#364154]' : 'bg-[#f8fafc] border-[#e2e8f0]'
       }`}>
         {/* Navigation Tabs - High Contrast, Large Touch Targets */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Tab 1: Le Mie Web App */}
           <button
             onClick={() => setActiveTab('my-apps')}
-            className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all min-h-[42px] border ${
+            className={`px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 transition-all min-h-[42px] border ${
               activeTab === 'my-apps'
                 ? 'bg-blue-600 border-blue-500 text-white shadow-md'
                 : isDark
-                ? 'bg-slate-700/80 border-slate-600 text-slate-100 hover:bg-slate-700 hover:text-white'
-                : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-50'
+                ? 'bg-[#202532] border-[#364154] text-slate-200 hover:bg-[#28303f]'
+                : 'bg-white border-[#e2e8f0] text-slate-800 hover:bg-slate-100 shadow-xs'
             }`}
           >
             <Globe className="w-4 h-4 text-blue-400" />

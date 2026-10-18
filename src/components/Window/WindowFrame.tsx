@@ -200,20 +200,18 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
               width: `${win.size.width}px`,
               height: `${win.size.height}px`,
             }),
+        borderColor: isActive ? settings.accentColor : undefined,
+        boxShadow: isActive
+          ? `0 0 0 2px ${settings.accentColor}, 0 24px 40px -10px rgba(0, 0, 0, 0.45)`
+          : undefined,
       }}
       className={`fixed flex flex-col transition-shadow duration-150 select-none ${
-        win.isMaximized ? 'rounded-none' : 'rounded-xl shadow-2xl'
+        win.isMaximized ? 'rounded-none' : 'rounded-2xl shadow-2xl'
       } ${
         isDark
-          ? 'bg-slate-900/95 text-slate-100 border border-slate-700/60'
-          : 'bg-white/95 text-slate-800 border border-slate-300/80 shadow-slate-900/20'
-      } ${
-        isActive
-          ? isDark
-            ? 'ring-1 ring-blue-500/50 shadow-blue-500/10'
-            : 'ring-1 ring-blue-500/40 shadow-blue-500/20'
-          : 'opacity-95'
-      }`}
+          ? 'bg-[#1e2533] text-[#f1f5f9] border border-[#37445a]'
+          : 'bg-[#faf8f5] text-[#0f172a] border border-[#ded7cc] shadow-2xl shadow-stone-900/15'
+      } ${!isActive ? 'opacity-95' : ''}`}
     >
       {/* Title Bar */}
       <div
@@ -221,20 +219,22 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
         onPointerMove={handlePointerMoveHeader}
         onPointerUp={handlePointerUpHeader}
         onDoubleClick={() => maximizeWindow(win.id)}
-        className={`flex items-center justify-between px-3.5 border-b cursor-grab active:cursor-grabbing shrink-0 select-none touch-none ${
-          settings.tabletMode ? 'h-12' : 'h-10'
+        className={`flex items-center justify-between px-4 border-b cursor-grab active:cursor-grabbing shrink-0 select-none touch-none ${
+          settings.tabletMode ? 'h-13' : 'h-11'
         } ${
-          win.isMaximized ? 'rounded-none' : 'rounded-t-xl'
+          win.isMaximized ? 'rounded-none' : 'rounded-t-2xl'
         } ${
           isDark
-            ? 'bg-slate-800/90 border-slate-700/60 text-slate-200'
-            : 'bg-slate-100/95 border-slate-200 text-slate-700'
+            ? 'bg-[#262f42] border-[#37445a] text-[#f8fafc]'
+            : 'bg-[#f4efe6] border-[#ded7cc] text-[#0f172a]'
         }`}
       >
         {/* Left: Window Icon + Title */}
-        <div className="flex items-center gap-2.5 overflow-hidden pointer-events-none">
-          <AppIcon name={win.icon} className="w-4 h-4 text-blue-500 shrink-0" />
-          <span className="text-xs font-semibold tracking-tight truncate max-w-[180px] sm:max-w-xs">
+        <div className="flex items-center gap-3 overflow-hidden pointer-events-none">
+          <span style={{ color: settings.accentColor }} className="shrink-0 flex items-center">
+            <AppIcon name={win.icon} className="w-5 h-5" />
+          </span>
+          <span className="text-base font-bold tracking-tight truncate max-w-[200px] sm:max-w-md">
             {win.title}
           </span>
         </div>
@@ -254,7 +254,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
                 setShowSnapMenu((prev) => !prev);
               }}
               className={`p-2 rounded-xl transition-colors min-w-[38px] min-h-[38px] flex items-center justify-center ${
-                isDark ? 'hover:bg-slate-700 text-slate-100 hover:text-white bg-slate-700/40' : 'hover:bg-slate-200 text-slate-800 bg-slate-200/50'
+                isDark ? 'hover:bg-[#343e52] text-slate-200 hover:text-white bg-[#28303f]' : 'hover:bg-slate-100 text-slate-700 hover:text-slate-900 bg-white border border-slate-200/70'
               }`}
               title="Layout e Spostamento"
               aria-label="Layout e Spostamento"
@@ -266,31 +266,31 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
             {showSnapMenu && (
               <div
                 onClick={(e) => e.stopPropagation()}
-                className={`absolute right-0 top-11 z-50 p-3 rounded-2xl shadow-2xl border flex flex-col gap-2.5 backdrop-blur-xl w-64 ${
+                className={`absolute right-0 top-12 z-50 p-4 rounded-2xl shadow-2xl border flex flex-col gap-3 backdrop-blur-xl w-72 ${
                   isDark
-                    ? 'bg-slate-800/95 border-slate-700 text-white'
-                    : 'bg-white/95 border-slate-200 text-slate-800'
+                    ? 'bg-[#242a38]/98 border-[#364154] text-[#f1f5f9]'
+                    : 'bg-[#faf8f5]/98 border-[#ded7cc] text-[#0f172a] shadow-2xl shadow-stone-900/20'
                 }`}
               >
-                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                   Layout & Spostamento Rapido
                 </div>
 
                 {/* Snap layouts */}
-                <div className="grid grid-cols-3 gap-1.5">
+                <div className="grid grid-cols-3 gap-2">
                   <button
                     onClick={() => {
                       snapWindow(win.id, 'left');
                       setShowSnapMenu(false);
                     }}
-                    className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-500/20 border border-slate-500/20 group"
+                    className="flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-blue-500/15 border border-slate-400/20 group"
                     title="Affianca a sinistra"
                   >
-                    <div className="w-10 h-6 border border-slate-400 rounded flex overflow-hidden">
-                      <div className="w-1/2 bg-blue-500/60 h-full border-r border-slate-400" />
+                    <div className="w-12 h-7 border-2 border-slate-400 rounded flex overflow-hidden">
+                      <div className="w-1/2 bg-blue-500 h-full border-r border-slate-400" />
                       <div className="w-1/2 h-full" />
                     </div>
-                    <span className="text-[10px] text-slate-400 group-hover:text-blue-400 font-medium">Sinistra</span>
+                    <span className="text-xs text-slate-400 group-hover:text-blue-500 font-semibold">Sinistra</span>
                   </button>
 
                   <button
@@ -298,14 +298,14 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
                       snapWindow(win.id, 'right');
                       setShowSnapMenu(false);
                     }}
-                    className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-500/20 border border-slate-500/20 group"
+                    className="flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-blue-500/15 border border-slate-400/20 group"
                     title="Affianca a destra"
                   >
-                    <div className="w-10 h-6 border border-slate-400 rounded flex overflow-hidden">
+                    <div className="w-12 h-7 border-2 border-slate-400 rounded flex overflow-hidden">
                       <div className="w-1/2 h-full border-r border-slate-400" />
-                      <div className="w-1/2 bg-blue-500/60 h-full" />
+                      <div className="w-1/2 bg-blue-500 h-full" />
                     </div>
-                    <span className="text-[10px] text-slate-400 group-hover:text-blue-400 font-medium">Destra</span>
+                    <span className="text-xs text-slate-400 group-hover:text-blue-500 font-semibold">Destra</span>
                   </button>
 
                   <button
@@ -313,11 +313,11 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
                       snapWindow(win.id, 'top');
                       setShowSnapMenu(false);
                     }}
-                    className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-500/20 border border-slate-500/20 group"
+                    className="flex flex-col items-center gap-1.5 p-2.5 rounded-xl hover:bg-blue-500/15 border border-slate-400/20 group"
                     title="Schermo intero"
                   >
-                    <div className="w-10 h-6 border border-slate-400 rounded bg-blue-500/60" />
-                    <span className="text-[10px] text-slate-400 group-hover:text-blue-400 font-medium">Schermo Intero</span>
+                    <div className="w-12 h-7 border-2 border-slate-400 rounded bg-blue-500" />
+                    <span className="text-xs text-slate-400 group-hover:text-blue-500 font-semibold">Schermo Intero</span>
                   </button>
                 </div>
 
@@ -328,9 +328,9 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
                       centerWindow();
                       setShowSnapMenu(false);
                     }}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl border border-slate-500/30 hover:bg-blue-600 hover:text-white transition-colors text-xs font-semibold"
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-slate-400/30 hover:bg-blue-600 hover:text-white transition-colors text-xs sm:text-sm font-semibold"
                   >
-                    <Crosshair className="w-3.5 h-3.5 text-blue-400" />
+                    <Crosshair className="w-4 h-4 text-blue-400" />
                     <span>Centra Finestra sullo Schermo</span>
                   </button>
                 </div>
@@ -345,7 +345,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
               minimizeWindow(win.id);
             }}
             className={`p-2 rounded-xl transition-colors min-w-[38px] min-h-[38px] flex items-center justify-center ${
-              isDark ? 'hover:bg-slate-700 text-slate-100 hover:text-white bg-slate-700/40' : 'hover:bg-slate-200 text-slate-800 bg-slate-200/50'
+              isDark ? 'hover:bg-[#343e52] text-slate-200 hover:text-white bg-[#28303f]' : 'hover:bg-slate-100 text-slate-700 hover:text-slate-900 bg-white border border-slate-200/70'
             }`}
             title="Riduci a icona"
             aria-label="Riduci a icona"
@@ -360,7 +360,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
               maximizeWindow(win.id);
             }}
             className={`p-2 rounded-xl transition-colors min-w-[38px] min-h-[38px] flex items-center justify-center ${
-              isDark ? 'hover:bg-slate-700 text-slate-100 hover:text-white bg-slate-700/40' : 'hover:bg-slate-200 text-slate-800 bg-slate-200/50'
+              isDark ? 'hover:bg-[#343e52] text-slate-200 hover:text-white bg-[#28303f]' : 'hover:bg-slate-100 text-slate-700 hover:text-slate-900 bg-white border border-slate-200/70'
             }`}
             title={win.isMaximized ? 'Ripristina' : 'Ingrandisci'}
             aria-label={win.isMaximized ? 'Ripristina' : 'Ingrandisci'}
@@ -378,7 +378,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({ window: win, children 
               e.stopPropagation();
               closeWindow(win.id);
             }}
-            className="p-2 rounded-xl transition-colors hover:bg-red-600 text-white bg-red-500/20 hover:text-white border border-red-500/30 min-w-[38px] min-h-[38px] flex items-center justify-center"
+            className="p-2 rounded-xl transition-colors hover:bg-red-600 text-red-500 hover:text-white bg-red-500/10 hover:border-red-600 border border-red-500/25 min-w-[38px] min-h-[38px] flex items-center justify-center"
             title="Chiudi"
             aria-label="Chiudi"
           >
